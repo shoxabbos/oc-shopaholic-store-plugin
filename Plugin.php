@@ -5,6 +5,7 @@ use Event;
 use Backend;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
+use Lovata\Shopaholic\Classes\Collection\ProductCollection;
 use Shohabbos\Stores\Models\Store;
 use System\Classes\PluginBase;
 
@@ -44,11 +45,30 @@ class Plugin extends PluginBase
             $this->extendUserForm($form, $model, $context);
         });
 
+        // extend product collection
+        ProductCollection::extend(function($obProductList) {
+
+            $obProductList->addDynamicMethod('store', function ($id) use ($obProductList) {
+                $store = Store::where('id', $id)->first();
+
+                if (!$store || !$store->products) {
+                    return $obProductList;
+                }
+
+                $data = $store->products()->lists('id');
+
+                return $obProductList->intersect($data);
+            });
+
+        });
         
     }
 
     public function registerComponents()
     {
+        return [
+            'Shohabbos\Stores\Components\StorePage' => 'StorePage'
+        ];
     }
 
     public function registerSettings()
