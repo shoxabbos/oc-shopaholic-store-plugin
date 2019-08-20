@@ -1,8 +1,11 @@
 <?php namespace Shohabbos\Stores;
 
+use Yaml;
 use Event;
 use Backend;
-use RainLab\User\Models\User;
+use RainLab\User\Models\User as UserModel;
+use RainLab\User\Controllers\Users as UsersController;
+use Shohabbos\Stores\Models\Store;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -16,7 +19,13 @@ class Plugin extends PluginBase
     public function boot()
     {
         // extend user model        
-        User::extend(function($model) {
+        UserModel::extend(function($model) {
+            $model->bindEvent('model.beforeSave', function() use ($model) {
+                if (!$model->store) {
+                    $model->store = new Store();
+                }
+            });
+
             $model->hasOne['store'] = 'Shohabbos\Stores\Models\Store';
         });
 
@@ -31,8 +40,8 @@ class Plugin extends PluginBase
         });
 
         // extend form
-        Event::listen('backend.form.extendFields', function($widget) {
-            $this->extendUserForm($widget);
+        UsersController::extendFormFields(function($form, $model, $context) {
+            $this->extendUserForm($form, $model, $context);
         });
 
         
@@ -52,19 +61,8 @@ class Plugin extends PluginBase
     // Helpers
     //
 
-    private function extendUserForm($widget) {
-        // Only for the User controller
-        if (!$widget->getController() instanceof \RainLab\User\Controllers\Users) {
-            return;
-        }
-
-        // Only for the User model
-        if (!$widget->model instanceof \RainLab\User\Models\User) {
-            return;
-        }
-
-        // Add an extra birthday field
-        $widget->addTabFields([
+    private function extendUserForm($form, $model, $context) {
+        $form->addTabFields([
             'is_store' => [
                 'tab'     => 'rainlab.user::lang.user.account',
                 'label'   => 'Is store',
@@ -73,17 +71,14 @@ class Plugin extends PluginBase
             ]
         ]);
 
-        $widget->addTabFields([
-            'store[name]' => [
-                'tab'     => 'Store',
-                'label'   => 'Name',
-                'span'    => 'auto'
-            ]
-        ]);
+        if (!$model->is_store) {
+            return false;
+        }
 
-        // Remove a Surname field
-        $widget->removeField('surname');
+        $fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/user_fields.yaml');
+        $form->addTabFields($fields);
     }
+
 
     private function extendUserList($widget) {
         // Only for the User controller

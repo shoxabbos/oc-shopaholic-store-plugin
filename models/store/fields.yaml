@@ -12,24 +12,49 @@ fields:
         span: auto
         required: 1
         type: recordfinder
-    legal_name:
-        label: 'Legal name'
-        span: auto
-        type: text
-    address:
-        label: Address
-        span: auto
-        type: text
-    contacts:
-        label: Contacts
-        span: auto
-        type: text
-    email:
-        label: Email
-        span: auto
-        type: text
 tabs:
     fields:
+        legal_name:
+            label: 'Legal name'
+            span: auto
+            type: text
+            tab: Main
+        contacts:
+            label: Contacts
+            span: auto
+            type: text
+            tab: Main
+        email:
+            label: Email
+            span: auto
+            type: text
+            tab: Main
+        address:
+            label: Address
+            span: auto
+            type: text
+            tab: Main
+        logo:
+            label: Logo
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            required: 0
+            type: fileupload
+            tab: Main
+        header_image:
+            label: 'Header image'
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: Main
         products:
             span: full
             path: products

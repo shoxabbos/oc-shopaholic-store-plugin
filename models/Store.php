@@ -29,6 +29,11 @@ class Store extends Model
         'user' => \RainLab\User\Models\User::class
     ];
 
+    public $attachOne = [
+        'logo' => 'System\Models\File',
+        'header_image' => 'System\Models\File',
+    ];
+
     public $hasMany = [
         'products' => 'Lovata\Shopaholic\Models\Product',
     ];
