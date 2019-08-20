@@ -1,9 +1,16 @@
 store[name]:
     label: Name
-    tab: Store
     span: auto
     required: 1
+    tab: Store
+store[slug]:
+    label: Slug
+    tab: Store
+    span: auto
     type: text
+    preset:
+        field: store[name]
+        type: slug
 store[legal_name]:
     label: 'Legal name'
     tab: Store

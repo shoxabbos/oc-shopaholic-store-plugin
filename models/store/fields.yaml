@@ -4,6 +4,13 @@ fields:
         span: auto
         required: 1
         type: text
+    slug:
+        label: Slug
+        span: auto
+        type: text
+        preset:
+            field: name
+            type: slug
     user:
         label: User
         nameFrom: name
