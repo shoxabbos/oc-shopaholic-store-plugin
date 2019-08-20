@@ -1,0 +1,37 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        required: 1
+        type: text
+    user:
+        label: User
+        nameFrom: name
+        descriptionFrom: ''
+        list: $/rainlab/user/models/user/columns.yaml
+        span: auto
+        required: 1
+        type: recordfinder
+    legal_name:
+        label: 'Legal name'
+        span: auto
+        type: text
+    address:
+        label: Address
+        span: auto
+        type: text
+    contacts:
+        label: Contacts
+        span: auto
+        type: text
+    email:
+        label: Email
+        span: auto
+        type: text
+tabs:
+    fields:
+        products:
+            span: full
+            path: products
+            type: partial
+            tab: 'Store products'

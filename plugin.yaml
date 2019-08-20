@@ -1,0 +1,10 @@
+plugin:
+    name: 'shohabbos.stores::lang.plugin.name'
+    description: 'shohabbos.stores::lang.plugin.description'
+    author: Shohabbos
+    icon: oc-icon-group
+    homepage: 'https://itmaker.uz'
+permissions:
+    manage_stores:
+        tab: 'shohabbos.stores::lang.plugin.name'
+        label: 'Manage stores'

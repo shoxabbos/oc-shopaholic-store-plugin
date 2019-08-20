@@ -1,0 +1,14 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Add is_store field to the users table'
+    - migration102.php
+1.0.3:
+    - 'Created table shohabbos_stores_stores'
+    - builder_table_create_shohabbos_stores_stores.php
+1.0.4:
+    - 'Updated table shohabbos_stores_stores'
+    - builder_table_update_shohabbos_stores_stores.php
+1.0.5:
+    - 'Add store id field to the lovata products table'
+    - migration105.php

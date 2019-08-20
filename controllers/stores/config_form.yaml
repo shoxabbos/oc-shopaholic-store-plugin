@@ -1,0 +1,10 @@
+name: Stores
+form: $/shohabbos/stores/models/store/fields.yaml
+modelClass: Shohabbos\Stores\Models\Store
+defaultRedirect: shohabbos/stores/stores
+create:
+    redirect: 'shohabbos/stores/stores/update/:id'
+    redirectClose: shohabbos/stores/stores
+update:
+    redirect: shohabbos/stores/stores
+    redirectClose: shohabbos/stores/stores

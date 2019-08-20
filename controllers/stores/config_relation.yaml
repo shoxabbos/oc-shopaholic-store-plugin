@@ -1,0 +1,10 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+products:
+    label: Product
+    view:
+        list: $/lovata/shopaholic/models/product/columns.yaml
+        recordUrl: 'lovata/shopaholic/products/update/:id'
+        toolbarButtons: link|unlink

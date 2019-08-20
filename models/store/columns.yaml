@@ -1,0 +1,31 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: name
+        type: text
+    address:
+        label: address
+        type: text
+    contacts:
+        label: contacts
+        type: text
+    legal_name:
+        label: legal_name
+        type: text
+    email:
+        label: email
+        type: text
+    user_id:
+        label: user_id
+        type: number
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime
+    deleted_at:
+        label: deleted_at
+        type: datetime
