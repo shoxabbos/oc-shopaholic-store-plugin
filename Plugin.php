@@ -67,7 +67,8 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'Shohabbos\Stores\Components\StorePage' => 'StorePage'
+            'Shohabbos\Stores\Components\StorePage' => 'StorePage',
+            'Shohabbos\Stores\Components\CreateProduct' => 'CreateProduct'
         ];
     }
 
