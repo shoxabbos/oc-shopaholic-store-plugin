@@ -22,7 +22,7 @@ class Plugin extends PluginBase
         // extend user model        
         UserModel::extend(function($model) {
             $model->bindEvent('model.beforeSave', function() use ($model) {
-                if (!$model->store) {
+                if ($model->is_store && !$model->store) {
                     $model->store = new Store();
                 }
             });
