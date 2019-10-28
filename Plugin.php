@@ -1,26 +1,31 @@
 <?php namespace Shohabbos\Stores;
 
+use Db;
+use Log;
+use Auth;
 use Yaml;
 use Event;
 use JWTAuth;
-use Auth;
 use Backend;
-use Db;
-use RainLab\User\Models\User as UserModel;
-use RainLab\User\Controllers\Users as UsersController;
-use Lovata\Shopaholic\Controllers\Products as ProductsController;
-use Lovata\Shopaholic\Classes\Collection\ProductCollection;
-use Lovata\OrdersShopaholic\Models\Order;
-use Lovata\Shopaholic\Controllers\Orders as OrdersController;
+use System\Classes\PluginBase;
+
 use Lovata\Shopaholic\Models\Offer;
 use Lovata\Shopaholic\Models\Product;
-use Shohabbos\Stores\Models\Store;
+use Lovata\OrdersShopaholic\Models\Order;
+use Lovata\Shopaholic\Classes\Collection\ProductCollection;
+use Lovata\Shopaholic\Controllers\Orders as OrdersController;
+use Lovata\Shopaholic\Controllers\Products as ProductsController;
+
+use RainLab\User\Models\User as UserModel;
+use RainLab\User\Controllers\Users as UsersController;
+
 use Itmaker\Banner\Models\Banner;
-use System\Classes\PluginBase;
+use Shohabbos\Stores\Models\Store;
+use Shohabbos\Stores\Models\Order as StoreOrder;
+
 
 class Plugin extends PluginBase
 {
-
 	public $required = [
 		'RainLab.User',
 		'Lovata.Shopaholic',
@@ -32,7 +37,6 @@ class Plugin extends PluginBase
     	Offer::extend(function($model) {
     		$model->addFillable(['property']);
     	});
-    	
     	
     	// extend user model        
         UserModel::extend(function($model) {
@@ -54,7 +58,7 @@ class Plugin extends PluginBase
         });
 		
 		Event::listen('shopaholic.order.created', function($obOrder) {
-			
+			$this->orderCreatedHandler($obOrder);
 		});
 
         // extend menu
@@ -107,6 +111,8 @@ class Plugin extends PluginBase
             $form->addTabFields($fields);
         });
 
+
+        $model = Store::find(33);
     }
 
     public function registerComponents()
@@ -123,22 +129,39 @@ class Plugin extends PluginBase
 
 
 
+
+
+
+
+
     //
     // Helpers
     //
 
-	/*private function auth() 
-    {    
-        return JWTAuth::parseToken()->authenticate();
-    }*/
-    
-    public function onRun() {
-        $this->user = Auth::getUser();
+    private function orderCreatedHandler($order) {
+        try {
+            Db::transaction(function () use ($order) {
+                foreach ($order->order_position as $key => $position) {
+                    $store = $position->offer->product->store;
+                    $user = $order->user;
+                    $amount = $position->total_price_value;
 
-        if (!$this->user) {
-            return null;
+                    $storeOrder = new StoreOrder([
+                        'store_id' => $store->id,
+                        'user_id' => $user->id,
+                        'amount' => $amount,
+                        'position_id' => $position->id,
+                        'order_id' => $order->id,
+                    ]);
+
+                    $storeOrder->save();
+                }
+
+            });
+        } catch (Exception $e) {
+            Log::error(var_export($e, true));
         }
-    }
+    }    
 	
     private function extendUserForm($form, $model, $context) {
         if (!$model instanceof UserModel) {
@@ -209,12 +232,6 @@ class Plugin extends PluginBase
         ]);
     }
     
-    private function createStoreOrder($obOrder){
-    	/*$user = Auth::getUser();
-    	$storeOrder = new StoreOrder();*/
-    	
-    	
-    	
-    }
+
 
 }

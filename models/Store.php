@@ -26,7 +26,7 @@ class Store extends Model
     ];
     
     public $belongsTo = [
-        'user' => \RainLab\User\Models\User::class
+        'user' => \RainLab\User\Models\User::class,
     ];
 
     public $attachOne = [
@@ -35,6 +35,7 @@ class Store extends Model
     ];
 	
     public $hasMany = [
+        'orders' => Order::class,
         'products' => 'Lovata\Shopaholic\Models\Product',
         'banners'  => 'Shohabbos\Stores\Models\Banner'
     ];

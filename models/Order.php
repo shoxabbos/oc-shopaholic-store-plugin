@@ -20,4 +20,14 @@ class Order extends Model
      */
     public $rules = [
     ];
+
+    public $belongsTo = [
+        'store' => Store::class,
+        'user' => \RainLab\User\Models\User::class,
+        'position' => \Lovata\OrdersShopaholic\Models\OrderPositon::class,
+        'order' => \Lovata\OrdersShopaholic\Models\Order::class
+    ];
+
+    protected $guarded = ['id'];
+
 }

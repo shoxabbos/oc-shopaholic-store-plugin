@@ -71,6 +71,11 @@ tabs:
             path: products
             type: partial
             tab: 'Store products'
+        orders:
+            span: full
+            path: orders
+            type: partial
+            tab: 'Store orders'
         field_banners:
             span: full
             path: field_banners
