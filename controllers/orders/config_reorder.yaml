@@ -1,0 +1,4 @@
+title: Orders
+modelClass: Shohabbos\Stores\Models\Order
+toolbar:
+    buttons: reorder_toolbar

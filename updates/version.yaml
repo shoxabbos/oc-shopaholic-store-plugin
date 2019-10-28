@@ -54,3 +54,15 @@
 1.0.20:
     - 'Added address field for user'
     - migration1020.php
+1.0.21:
+    - 'Created table shohabbos_stores_orders'
+    - builder_table_create_shohabbos_stores_orders.php
+1.0.22:
+    - 'Updated table shohabbos_stores_orders'
+    - builder_table_update_shohabbos_stores_orders.php
+1.0.23:
+    - 'Updated table shohabbos_stores_orders'
+    - builder_table_update_shohabbos_stores_orders_2.php
+1.0.24:
+    - 'Drop table shohabbos_stores_orders'
+    - builder_table_delete_shohabbos_stores_orders.php

@@ -36,7 +36,7 @@ class Store extends Model
 	
     public $hasMany = [
         'products' => 'Lovata\Shopaholic\Models\Product',
-        'banners'  => 'Shohabbos\Stores\Models\Banner',
+        'banners'  => 'Shohabbos\Stores\Models\Banner'
     ];
 
 }

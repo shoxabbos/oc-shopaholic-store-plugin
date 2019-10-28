@@ -2,11 +2,16 @@
 
 use Yaml;
 use Event;
+use JWTAuth;
+use Auth;
 use Backend;
+use Db;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
 use Lovata\Shopaholic\Controllers\Products as ProductsController;
 use Lovata\Shopaholic\Classes\Collection\ProductCollection;
+use Lovata\OrdersShopaholic\Models\Order;
+use Lovata\Shopaholic\Controllers\Orders as OrdersController;
 use Lovata\Shopaholic\Models\Offer;
 use Lovata\Shopaholic\Models\Product;
 use Shohabbos\Stores\Models\Store;
@@ -49,6 +54,10 @@ class Plugin extends PluginBase
 		Product::extend(function($model) {
             $model->belongsTo['store'] = 'Shohabbos\Stores\Models\Store';
         });
+		
+		Event::listen('shopaholic.order.created', function($obOrder) {
+			
+		});
 
         // extend menu
         Event::listen('backend.menu.extendItems', function($manager) {
@@ -133,6 +142,19 @@ class Plugin extends PluginBase
     // Helpers
     //
 
+	/*private function auth() 
+    {    
+        return JWTAuth::parseToken()->authenticate();
+    }*/
+    
+    public function onRun() {
+        $this->user = Auth::getUser();
+
+        if (!$this->user) {
+            return null;
+        }
+    }
+	
     private function extendUserForm($form, $model, $context) {
         $form->addTabFields([
             'is_store' => [
@@ -182,6 +204,14 @@ class Plugin extends PluginBase
                 ]
             ]
         ]);
+    }
+    
+    private function createStoreOrder($obOrder){
+    	/*$user = Auth::getUser();
+    	$storeOrder = new StoreOrder();*/
+    	
+    	
+    	
     }
 
 }
