@@ -1,0 +1,24 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+    name:
+        label: name
+        type: text
+        searchable: true
+    type:
+        label: type
+        type: text
+        searchable: true
+    store_id:
+        label: store_id
+        type: number
+        searchable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+    banner_size:
+        label: banner_size
+        type: text

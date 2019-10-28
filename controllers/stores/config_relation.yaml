@@ -8,3 +8,11 @@ products:
         list: $/lovata/shopaholic/models/product/columns.yaml
         recordUrl: 'lovata/shopaholic/products/update/:id'
         toolbarButtons: link|unlink
+banners:
+    label: Banner
+    manage:
+        form: $/shohabbos/stores/models/banner/fields.yaml
+        list: $/shohabbos/stores/models/banner/columns.yaml
+    view:
+        list: $/shohabbos/stores/models/banner/columns.yaml
+        toolbarButtons: create|delete        

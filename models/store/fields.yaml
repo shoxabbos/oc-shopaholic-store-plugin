@@ -19,6 +19,10 @@ fields:
         span: auto
         required: 1
         type: recordfinder
+    commission:
+        label: 'Commission from the amount'
+        span: auto
+        type: number
 tabs:
     fields:
         legal_name:
@@ -53,7 +57,7 @@ tabs:
             type: fileupload
             tab: Main
         header_image:
-            label: 'Header image'
+            label: 'Header image (1233x500)'
             mode: image
             useCaption: true
             thumbOptions:
@@ -67,3 +71,20 @@ tabs:
             path: products
             type: partial
             tab: 'Store products'
+        field_banners:
+            span: full
+            path: field_banners
+            type: partial
+            tab: 'Banner store'
+        content:
+            label: Content
+            size: large
+            span: full
+            type: textarea
+            tab: Description
+        description:
+            label: Description
+            size: huge
+            span: full
+            type: textarea
+            tab: Description

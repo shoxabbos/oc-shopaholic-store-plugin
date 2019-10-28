@@ -24,7 +24,7 @@ class Store extends Model
      */
     public $rules = [
     ];
-
+    
     public $belongsTo = [
         'user' => \RainLab\User\Models\User::class
     ];
@@ -33,9 +33,10 @@ class Store extends Model
         'logo' => 'System\Models\File',
         'header_image' => 'System\Models\File',
     ];
-
+	
     public $hasMany = [
         'products' => 'Lovata\Shopaholic\Models\Product',
+        'banners'  => 'Shohabbos\Stores\Models\Banner',
     ];
 
 }

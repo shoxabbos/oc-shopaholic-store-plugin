@@ -29,7 +29,9 @@ class StorePage extends \Cms\Classes\ComponentBase
 
 
     public function get() {
-        $this->store = StoreModel::where('slug', $this->property('page'))->first();
+        if ($this->property('page')) {
+        	$this->store = StoreModel::where('slug', $this->property('page'))->first();
+    	}	
 
         return $this->store;
     }

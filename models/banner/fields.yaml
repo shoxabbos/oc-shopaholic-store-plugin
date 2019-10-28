@@ -1,0 +1,29 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+    type:
+        label: Type
+        span: auto
+        type: text
+    link:
+        label: Link
+        span: auto
+        type: text
+    image:
+        label: 'File upload'
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload
+    banner_size:
+        label: 'Radio list'
+        options:
+            big: 'Big ( 619x623 )'
+            small: 'Small ( 404x407 )'
+        span: auto
+        type: radio

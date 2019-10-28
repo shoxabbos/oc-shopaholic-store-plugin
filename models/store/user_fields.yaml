@@ -1,54 +1,5 @@
-store[name]:
-    label: Name
-    span: auto
-    required: 1
-    tab: Store
-store[slug]:
-    label: Slug
-    tab: Store
+phone:
+    label: Phone
     span: auto
     type: text
-    preset:
-        field: store[name]
-        type: slug
-store[legal_name]:
-    label: 'Legal name'
-    tab: Store
-    span: auto
-    type: text
-store[address]:
-    label: Address
-    tab: Store
-    span: auto
-    type: text
-store[contacts]:
-    label: Contacts
-    tab: Store
-    span: auto
-    type: text
-store[email]:
-    label: Email
-    tab: Store
-    span: auto
-    type: text
-store[logo]:
-    label: Logo
-    mode: image
-    useCaption: true
-    thumbOptions:
-        mode: crop
-        extension: auto
-    span: auto
-    required: 0
-    type: fileupload
-    tab: Store
-store[header_image]:
-    label: 'Header image'
-    mode: image
-    useCaption: true
-    thumbOptions:
-        mode: crop
-        extension: auto
-    span: auto
-    type: fileupload
-    tab: Store
+    tab: rainlab.user::lang.user.account

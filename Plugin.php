@@ -5,8 +5,12 @@ use Event;
 use Backend;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
+use Lovata\Shopaholic\Controllers\Products as ProductsController;
 use Lovata\Shopaholic\Classes\Collection\ProductCollection;
+use Lovata\Shopaholic\Models\Offer;
+use Lovata\Shopaholic\Models\Product;
 use Shohabbos\Stores\Models\Store;
+use Itmaker\Banner\Models\Banner;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -19,7 +23,15 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        // extend user model        
+    	//expand the plugin. added filable fields
+    	Offer::extend(function($model) {
+    		$model->addFillable(['property']);
+    	});
+    	/*Product::extend(function($model){
+    		$model->addFillable(['additional_category']);	
+    	});*/
+    	
+    	// extend user model        
         UserModel::extend(function($model) {
             $model->bindEvent('model.beforeSave', function() use ($model) {
                 if ($model->is_store && !$model->store) {
@@ -28,6 +40,14 @@ class Plugin extends PluginBase
             });
 
             $model->hasOne['store'] = 'Shohabbos\Stores\Models\Store';
+            $model->addFillable([
+            	'phone',
+            	'user_address'
+            ]);
+        });
+
+		Product::extend(function($model) {
+            $model->belongsTo['store'] = 'Shohabbos\Stores\Models\Store';
         });
 
         // extend menu
@@ -39,7 +59,7 @@ class Plugin extends PluginBase
         Event::listen('backend.list.extendColumns', function($widget) {
             $this->extendUserList($widget);
         });
-
+        
         // extend form
         UsersController::extendFormFields(function($form, $model, $context) {
             $this->extendUserForm($form, $model, $context);
@@ -62,6 +82,37 @@ class Plugin extends PluginBase
 
         });
         
+        UsersController::extendFormFields(function($form, $model, $context) {
+            if (!$model instanceof UserModel) {
+                return;
+            }
+
+            if (!$model->exists) {
+                return;
+            }
+            if (!$model->store) {
+            	$fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/user_fields.yaml');
+            } else {
+            	$fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/userstore_fields.yaml');
+            }
+            $form->addTabFields($fields);	
+        });
+        
+        ProductsController::extendFormFields(function($form, $model, $context) {
+            if (!$model instanceof Product) {
+                return;
+            }
+
+            if (!$model->exists) {
+                return;
+            }
+            if (!$model->store) {
+            	return;
+            } else {
+            	$fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/product_store_fields.yaml');
+            }
+            $form->addTabFields($fields);	
+        });
     }
 
     public function registerComponents()
@@ -99,7 +150,6 @@ class Plugin extends PluginBase
         $fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/user_fields.yaml');
         $form->addTabFields($fields);
     }
-
 
     private function extendUserList($widget) {
         // Only for the User controller

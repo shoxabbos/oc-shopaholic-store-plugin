@@ -29,3 +29,6 @@ columns:
     deleted_at:
         label: deleted_at
         type: datetime
+    slug:
+        label: slug
+        type: text
