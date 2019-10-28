@@ -24,7 +24,7 @@ class Order extends Model
     public $belongsTo = [
         'store' => Store::class,
         'user' => \RainLab\User\Models\User::class,
-        'position' => \Lovata\OrdersShopaholic\Models\OrderPositon::class,
+        'position' => \Lovata\OrdersShopaholic\Models\OrderPosition::class,
         'order' => \Lovata\OrdersShopaholic\Models\Order::class
     ];
 
