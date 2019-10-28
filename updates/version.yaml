@@ -66,3 +66,6 @@
 1.0.24:
     - 'Drop table shohabbos_stores_orders'
     - builder_table_delete_shohabbos_stores_orders.php
+1.0.25:
+    - 'Created table shohabbos_stores_orders'
+    - builder_table_create_shohabbos_stores_orders_2.php

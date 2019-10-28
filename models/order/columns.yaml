@@ -1,0 +1,22 @@
+columns:
+    id:
+        label: id
+        type: number
+    store_id:
+        label: store_id
+        type: number
+    order_id:
+        label: order_id
+        type: number
+    position_id:
+        label: position_id
+        type: number
+    user_id:
+        label: user_id
+        type: number
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime
