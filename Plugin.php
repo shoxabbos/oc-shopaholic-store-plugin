@@ -32,9 +32,7 @@ class Plugin extends PluginBase
     	Offer::extend(function($model) {
     		$model->addFillable(['property']);
     	});
-    	/*Product::extend(function($model){
-    		$model->addFillable(['additional_category']);	
-    	});*/
+    	
     	
     	// extend user model        
         UserModel::extend(function($model) {
@@ -91,22 +89,6 @@ class Plugin extends PluginBase
 
         });
         
-        UsersController::extendFormFields(function($form, $model, $context) {
-            if (!$model instanceof UserModel) {
-                return;
-            }
-
-            if (!$model->exists) {
-                return;
-            }
-            if (!$model->store) {
-            	$fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/user_fields.yaml');
-            } else {
-            	$fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/userstore_fields.yaml');
-            }
-            $form->addTabFields($fields);	
-        });
-        
         ProductsController::extendFormFields(function($form, $model, $context) {
             if (!$model instanceof Product) {
                 return;
@@ -115,13 +97,16 @@ class Plugin extends PluginBase
             if (!$model->exists) {
                 return;
             }
+
             if (!$model->store) {
             	return;
             } else {
             	$fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/product_store_fields.yaml');
             }
-            $form->addTabFields($fields);	
+            
+            $form->addTabFields($fields);
         });
+
     }
 
     public function registerComponents()
@@ -156,6 +141,14 @@ class Plugin extends PluginBase
     }
 	
     private function extendUserForm($form, $model, $context) {
+        if (!$model instanceof UserModel) {
+            return;
+        }
+
+        if (!$model->exists) {
+            return;
+        }
+
         $form->addTabFields([
             'is_store' => [
                 'tab'     => 'rainlab.user::lang.user.account',
@@ -170,6 +163,16 @@ class Plugin extends PluginBase
         }
 
         $fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/user_fields.yaml');
+        $form->addTabFields($fields);
+
+
+        // add additional fields
+        if (!$model->store) {
+            $fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/user_fields.yaml');
+        } else {
+            $fields = Yaml::parseFile('./plugins/shohabbos/stores/models/store/userstore_fields.yaml');
+        }
+
         $form->addTabFields($fields);
     }
 
