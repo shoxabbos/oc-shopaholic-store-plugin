@@ -14,7 +14,7 @@
     - migration105.php
 1.0.6:
     - 'Updated table shohabbos_stores_stores'
-    - builder_table_update_shohabbos_stores_stores_2.php
+    - builder_table_update_shohabbos_stores_stores2.php
 1.0.8:
     - 'Updated table shohabbos_stores_stores'
     - builder_table_update_shohabbos_stores_stores3.php
@@ -74,4 +74,4 @@
     - builder_table_update_shohabbos_stores_orders_3.php
 1.0.27:
     - 'Updated table shohabbos_stores_orders'
-    - builder_table_update_shohabbos_stores_orders_4.php
+    - builder_table_update_shohabbos_stores_orders4.php

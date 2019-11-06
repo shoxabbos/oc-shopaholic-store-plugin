@@ -76,7 +76,7 @@ tabs:
             path: orders
             type: partial
             tab: 'Store orders'
-        field_banners:
+        field_banners@update:
             span: full
             path: field_banners
             type: partial
