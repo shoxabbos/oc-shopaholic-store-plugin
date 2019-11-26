@@ -25,6 +25,10 @@ class Store extends Model
     public $rules = [
     ];
     
+    protected $jsonable = [
+        'is_category'
+    ];
+    
     public $belongsTo = [
         'user' => \RainLab\User\Models\User::class,
     ];

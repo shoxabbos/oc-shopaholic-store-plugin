@@ -75,3 +75,9 @@
 1.0.27:
     - 'Updated table shohabbos_stores_orders'
     - builder_table_update_shohabbos_stores_orders_4.php
+1.0.28:
+    - 'Updated table shohabbos_stores_stores'
+    - builder_table_update_shohabbos_stores_stores_6.php
+1.0.29:
+    - 'Updated table shohabbos_stores_stores'
+    - builder_table_update_shohabbos_stores_stores_7.php

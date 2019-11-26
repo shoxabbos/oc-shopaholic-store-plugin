@@ -23,6 +23,14 @@ fields:
         label: 'Commission from the amount'
         span: auto
         type: number
+    is_category:
+        label: Categories
+        options:
+            women: Women
+            men: Men
+            child: Child
+        span: auto
+        type: checkboxlist
 tabs:
     fields:
         legal_name:

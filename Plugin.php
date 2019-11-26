@@ -43,6 +43,9 @@ class Plugin extends PluginBase
             $model->bindEvent('model.beforeSave', function() use ($model) {
                 if ($model->is_store && !$model->store) {
                     $model->store = new Store();
+                    $model->store->name = $model->name;
+                    $model->store->slug = $model->name;
+                    $model->save();
                 }
             });
 
@@ -69,6 +72,7 @@ class Plugin extends PluginBase
         // extend list
         Event::listen('backend.list.extendColumns', function($widget) {
             $this->extendUserList($widget);
+            $this->extendProductList($widget);
         });
         
         // extend form
@@ -217,6 +221,27 @@ class Plugin extends PluginBase
                 'type' => 'switch'
             ]
         ]);
+    }
+    private function extendProductList($widget) {
+    	// Only for the User controller
+        if (!$widget->getController() instanceof \Lovata\Shopaholic\Controllers\Products) {
+            return;
+        }
+
+        // Only for the User model
+        if (!$widget->model instanceof \Lovata\Shopaholic\Models\Product) {
+            return;
+        }
+
+        // Add an extra birthday column
+        
+        $widget->addColumns([
+		    'store' => [
+		        'label' => 'Store',
+		        'select' => 'name',
+		        'relation' => 'store'
+		    ]
+		]);
     }
 
     private function extendUserMenu($manager) {

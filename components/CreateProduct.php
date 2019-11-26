@@ -42,17 +42,17 @@ class CreateProduct extends \Cms\Classes\ComponentBase
             throw new ValidationException(['massages' => trans("Пользователь не найден")]);
         }
         
-        $data = Input::only('name', 'category_id', 'store_id', 'code', 'preview_text', 'description', 'brand_id', 'active', 'preview_image', 'images', 'offers', 'property', 'categoryChildOne_id','categoryChildTwo_id','categoryChildThree_id');
+        $data = Input::only('name', 'category_id', 'store_id', 'code', 'description', 'brand_id', 'active', 'preview_image', 'images', 'offers', 'property', 'categoryChildOne_id','categoryChildTwo_id','categoryChildThree_id', 'categoryChildFour_id');
         $additionalCategory = [
         	'one'=>$data['categoryChildOne_id'],
         	'two'=>$data['categoryChildTwo_id'],
         	'three'=>$data['categoryChildThree_id'],
-        	'four'=>$data['category_id']
+        	'four'=>$data['category_id'],
+			'five'=>$data['categoryChildFour_id']        	
         ]; 
         $rules = [
         	'name' => 'required|min:5',
-        	'category_id' => 'required',
-        	'preview_text' => 'required|min:5',
+        	'category_id' => 'required'
         ];
         $validation = Validator::make($data, $rules); 
         if ($validation->fails()) {
@@ -80,11 +80,11 @@ class CreateProduct extends \Cms\Classes\ComponentBase
     	$user = Auth::getUser();
     	$data = Input::only('name', 'category_id', 'store_id', 'code', 'preview_text', 'description', 'brand_id', 'active', 'preview_image', 'images', 'property','categoryChildOne_id','categoryChildTwo_id','categoryChildThree_id');
 		$additionalCategory = [
-        	'one'=>$data['categoryChildOne_id'],
-        	'two'=>$data['categoryChildTwo_id'],
-        	'three'=>$data['categoryChildThree_id'],
-        	'four'=>$data['category_id']
-        ]; 
+        	'one'=>isset($data['categoryChildOne_id']) ? $data['categoryChildOne_id'] : null,
+        	'two'=>isset($data['categoryChildTwo_id']) ? $data['categoryChildTwo_id'] : null,
+        	'three'=> isset($data['categoryChildThree_id']) ? $data['categoryChildThree_id'] : null,
+        	'four'=>isset($data['category_id']) ? $data['category_id'] : null,
+        ];
 
         $rules = [
             'name' => 'required|min:5',
@@ -107,7 +107,7 @@ class CreateProduct extends \Cms\Classes\ComponentBase
         if (isset($data['property'])) {
         	$product->property = $data['property'];
         	$product->update();	
-        }        
+        }
         $slug = $user->store->slug;
         return Redirect::to('/product-store/' . $slug);
     }
@@ -115,9 +115,10 @@ class CreateProduct extends \Cms\Classes\ComponentBase
     public function onOfferUpdate() {
     	$data = Input::only('name', 'active', 'price', 'old_price', 'quantity', 'offer_id'); 
     	$rules = [
-	        'price' => 'integer',
+    		'name' => 'string|required',
+	        'price' => 'integer|required',
 	        'old_price' => 'integer',
-	        'quantity' => 'integer',
+	        'quantity' => 'integer|required'
 	    ];
 	
 	    $validation = Validator::make($data, $rules);
@@ -131,6 +132,9 @@ class CreateProduct extends \Cms\Classes\ComponentBase
     	$obOffer->old_price = $data['old_price'];
     	$obOffer->quantity = $data['quantity'];
     	$obOffer->update();
+    	
+	   	$product = ProductModel::where('slug', $this->param('slug'))->first();
+    	return Redirect::to('update-product/'. $product->store->slug . '/' . $product->slug);
     }
     
     public function onOfferCreate() {
@@ -139,8 +143,7 @@ class CreateProduct extends \Cms\Classes\ComponentBase
     	$product = ProductModel::where('slug', $this->param('slug'))->first();
 		$product->offer()->createMany($data['offers']);
     	
-    	$product = ProductModel::where('slug', $this->param('slug'))->first();
-		return Redirect::to('update-product/'.$product->slug);
+		return Redirect::to('update-product/'. $product->store->slug . '/' . $product->slug);
     }
     
     public function onOfferRemove() {
@@ -148,7 +151,7 @@ class CreateProduct extends \Cms\Classes\ComponentBase
     	OfferModel::where('id', $offerId)->delete();	
     	
     	$product = ProductModel::where('slug', $this->param('slug'))->first();
-		return Redirect::to('update-product/'.$product->slug);
+		return Redirect::to('update-product/'. $product->store->slug . '/' . $product->slug);
     }
     
 	public function onStoreUpdate() {
