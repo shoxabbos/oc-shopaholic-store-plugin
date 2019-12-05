@@ -48,21 +48,17 @@ class Plugin extends PluginBase
         // extend 
         Order::extend(function($model) {
             $model->bindEvent('model.afterSave', function() use ($model) {
-                $model->unsetEventDispatcher();
 
                 $original = $model->getOriginal();
                 if (isset($original['status_id']) && $original['status_id'] != $model->status_id && $model->status->code == 'confirmed') {
+                    $model->unsetEventDispatcher();
                     
-                    $url = "https://pmall.uz/pay/".$model->id;
+                    $message = "https://pmall.uz/pay/".$model->id;
                     if ($url) {
                         $sms = \App::make('sms');
                         $sms->add($model->property['phone'], $url);
                         $sms->send();
                     }
-                    
-                    // $gateway = $model->payment_method->gateway;
-                    // $gateway->purchase($model);
-                    // $url = $gateway->getRedirectURL();
                 }
 
 
