@@ -46,7 +46,7 @@ class CreateProduct extends \Cms\Classes\ComponentBase
         $additionalCategory = [
         	'one'=>$data['categoryChildOne_id'],
         	'two'=>$data['categoryChildTwo_id'],
-        	'three'=>$data['categoryChildThree_id'],
+        	'three'=>isset($data['categoryChildThree_id'] ) ? $data['categoryChildThree_id'] : null,
         	'four'=>$data['category_id'],
 			'five'=>$data['categoryChildFour_id']        	
         ]; 

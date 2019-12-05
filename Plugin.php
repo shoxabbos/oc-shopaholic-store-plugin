@@ -2,6 +2,7 @@
 
 use Db;
 use Log;
+use App;
 use Auth;
 use Yaml;
 use Event;
@@ -33,10 +34,40 @@ class Plugin extends PluginBase
 
     public function boot()
     {
+        // register sms service provider
+        App::bind('sms', function($app) {
+            return new \Shohabbos\Stores\Classes\SmsBroker;
+        });
+
+
     	//expand the plugin. added filable fields
     	Offer::extend(function($model) {
     		$model->addFillable(['property']);
     	});
+
+        // extend 
+        Order::extend(function($model) {
+            $model->bindEvent('model.afterSave', function() use ($model) {
+                $model->unsetEventDispatcher();
+
+                $original = $model->getOriginal();
+                if ($original['status_id'] != $model->status_id && $model->status->code == 'confirmed') {
+                    
+                    $url = "https://pmall.uz/pay/".$model->id;
+                    if ($url) {
+                        $sms = \App::make('sms');
+                        $sms->add($model->property['phone'], $url);
+                        $sms->send();
+                    }
+                    
+                    // $gateway = $model->payment_method->gateway;
+                    // $gateway->purchase($model);
+                    // $url = $gateway->getRedirectURL();
+                }
+
+
+            });
+        });
     	
     	// extend user model        
         UserModel::extend(function($model) {
@@ -115,8 +146,6 @@ class Plugin extends PluginBase
             $form->addTabFields($fields);
         });
 
-
-        $model = Store::find(33);
     }
 
     public function registerComponents()
