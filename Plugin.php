@@ -51,7 +51,7 @@ class Plugin extends PluginBase
                 $model->unsetEventDispatcher();
 
                 $original = $model->getOriginal();
-                if ($original['status_id'] != $model->status_id && $model->status->code == 'confirmed') {
+                if (isset($original['status_id']) && $original['status_id'] != $model->status_id && $model->status->code == 'confirmed') {
                     
                     $url = "https://pmall.uz/pay/".$model->id;
                     if ($url) {
