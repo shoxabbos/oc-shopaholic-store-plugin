@@ -55,7 +55,7 @@ class SmsBroker
 
 		$context  = stream_context_create( $options );
 		$result = file_get_contents($this->url, false, $context );
-		return json_decode( $result );
+		return json_decode($result);
 	}
 
 

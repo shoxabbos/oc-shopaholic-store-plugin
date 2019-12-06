@@ -53,7 +53,7 @@ class Plugin extends PluginBase
                 if (isset($original['status_id']) && $original['status_id'] != $model->status_id && $model->status->code == 'confirmed') {
                     $model->unsetEventDispatcher();
                     
-                    $message = "https://pmall.uz/pay/".$model->id;
+                    $url = "Vash zakaz podverjden, pereyti k oplate: https://pmall.uz/pay/".$model->id;
                     if ($url) {
                         $sms = \App::make('sms');
                         $sms->add($model->property['phone'], $url);

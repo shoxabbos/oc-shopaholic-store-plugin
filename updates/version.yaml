@@ -81,4 +81,6 @@
 1.0.29:
     - 'Updated table shohabbos_stores_stores'
     - builder_table_update_shohabbos_stores_stores_7.php
-    
+1.0.30:
+    - 'Updated table shohabbos_stores_stores'
+    - builder_table_update_shohabbos_stores_stores_8.php
