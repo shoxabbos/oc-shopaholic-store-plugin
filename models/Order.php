@@ -21,6 +21,8 @@ class Order extends Model
     public $rules = [
     ];
 
+    public $jsonable = ['positions'];
+
     public $belongsTo = [
         'store' => Store::class,
         'user' => \RainLab\User\Models\User::class,
@@ -29,5 +31,9 @@ class Order extends Model
     ];
 
     protected $guarded = ['id'];
+
+    public function getPositionsCollectionAttribute() {
+        return \Lovata\OrdersShopaholic\Models\OrderPosition::whereIn('id', $this->positions)->get();
+    }
 
 }

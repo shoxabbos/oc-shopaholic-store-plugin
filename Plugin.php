@@ -170,20 +170,32 @@ class Plugin extends PluginBase
     private function orderCreatedHandler($order) {
         try {
             Db::transaction(function () use ($order) {
+                $stores = [];
+
                 foreach ($order->order_position as $key => $position) {
                     $store = $position->offer->product->store;
                     $user = $order->user;
                     $amount = $position->total_price_value;
 
-                    $storeOrder = new StoreOrder([
-                        'store_id' => $store->id,
-                        'user_id' => $user->id,
-                        'amount' => $amount,
-                        'position_id' => $position->id,
-                        'order_id' => $order->id,
-                    ]);
+                    $stores[$store->id]['order_id'] = $order->id;
+                    $stores[$store->id]['store_id'] = $store->id;
+                    $stores[$store->id]['user_id'] = $user->id;
 
-                    $storeOrder->save();
+                    if (isset($stores[$store->id]['amount'])) {
+                        $stores[$store->id]['amount'] += $amount;
+                    } else {
+                        $stores[$store->id]['amount'] = $amount;
+                    }
+
+                    if (!isset($stores[$store->id]['positions'])) {
+                        $stores[$store->id]['positions'] = [];                        
+                    }
+
+                    $stores[$store->id]['positions'][] = $position->id;
+                }
+
+                foreach ($stores as $key => $value) {
+                    StoreOrder::create($value);
                 }
 
             });

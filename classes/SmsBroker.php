@@ -43,19 +43,24 @@ class SmsBroker
 
 
 	public function send() {
-		$hash = base64_encode($this->username.":".$this->password);
-		$options = array(
-		  'http' => array(
-		    'method'  => 'POST',
-		    'content' => json_encode($this->getData()),
-		    'header'=>  "Content-Type: application/json\r\n" .
-		                "Authorization: Basic {$hash}\r\n"
-		    )
-		);
+		try {
+			$hash = base64_encode($this->username.":".$this->password);
+			$options = array(
+			  'http' => array(
+			    'method'  => 'POST',
+			    'content' => json_encode($this->getData()),
+			    'header'=>  "Content-Type: application/json\r\n" .
+			                "Authorization: Basic {$hash}\r\n"
+			    )
+			);
 
-		$context  = stream_context_create( $options );
-		$result = file_get_contents($this->url, false, $context );
-		return json_decode($result);
+			$context  = stream_context_create( $options );
+			$result = file_get_contents($this->url, false, $context );
+			return json_decode($result);
+			
+		} catch (\Exception $e) {
+			\Flash::error('Error sms');
+		}
 	}
 
 
