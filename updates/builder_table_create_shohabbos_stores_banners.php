@@ -16,8 +16,8 @@ class BuilderTableCreateShohabbosStoresBanners extends Migration
             $table->string('type', 191);
             $table->string('link', 191);
             $table->string('banner_size', 191);
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('created_at')->nulable('NULL');
+            $table->timestamp('updated_at')->nulable('NULL');
         });
     }
     

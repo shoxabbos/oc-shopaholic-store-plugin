@@ -13,18 +13,18 @@ class BuilderTableCreateShohabbosStoresStores extends Migration
             $table->increments('id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('store_id')->unsigned();
-            $table->integer('commission')->nullable();
+            $table->integer('commission')->nulable('NULL');
             $table->string('name', 191);
             $table->string('slug', 191);
-            $table->text('description')->nullable();
-            $table->text('content')->nullable();
-            $table->string('address', 191)->nullable();
-            $table->string('contacts', 191)->nullable();
-            $table->string('legal_name', 191)->nullable();
-            $table->string('email', 191)->nullable();
-            $table->string('is_category', 191)->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->text('description')->nulable('NULL');
+            $table->text('content')->nulable('NULL');
+            $table->string('address', 191)->nulable('NULL');
+            $table->string('contacts', 191)->nulable('NULL');
+            $table->string('legal_name', 191)->nulable('NULL');
+            $table->string('email', 191)->nulable('NULL');
+            $table->string('is_category', 191)->nulable('NULL');
+            $table->timestamp('created_at')->nulable('NULL');
+            $table->timestamp('updated_at')->nulable('NULL');
         });
     }
     

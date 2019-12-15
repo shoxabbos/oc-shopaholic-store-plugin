@@ -9,12 +9,12 @@ class Migration102 extends Migration
     {
         Schema::table('users', function($table) {
             $table->integer('is_store')->boolean()->default(0);
-            $table->string('phone')->nulable();
-            $table->string('user_address')->nulable();
+            $table->string('phone')->default('NULL');
+            $table->string('user_address')->nulable('NULL');
         });
 
         Schema::table('lovata_shopaholic_products', function($table) {
-            $table->integer('store_id')->nullable();
+            $table->integer('store_id')->nullable('NULL');
         });
     }
 
@@ -23,7 +23,7 @@ class Migration102 extends Migration
         Schema::table('users', function($table) {
             $table->dropColumn('is_store'); 
             $table->dropColumn('phone'); 
-            $table->dropColumn('user_address');            
+            $table->dropColumn('user_address');
         });
 
         Schema::table('lovata_shopaholic_products', function($table) {

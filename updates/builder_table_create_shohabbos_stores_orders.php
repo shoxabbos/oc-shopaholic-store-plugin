@@ -16,8 +16,8 @@ class BuilderTableCreateShohabbosStoresOrders extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('amount')->unsigned();
             $table->text('positions', 1000);
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('created_at')->nulable('NULL');
+            $table->timestamp('updated_at')->nulable('NULL');
         });
     }
     
