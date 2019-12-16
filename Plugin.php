@@ -219,7 +219,17 @@ class Plugin extends PluginBase
                 'label'   => 'Is store',
                 'type'    => 'switch',
                 'span'    => 'auto'
-            ]
+            ],
+            'profile_status' => [
+                'tab'     => 'rainlab.user::lang.user.account',
+                'label'   => 'Profile status',
+                'type'    => 'dropdown',
+                'span'    => 'auto',
+                'options' => [
+                    'simple' => 'Simple (default status)',
+                    'vip_customer' => 'Vip customer'
+                ],
+            ],
         ]);
 
         if (!$model->is_store) {
