@@ -214,10 +214,10 @@ class Plugin extends PluginBase
         }
 
         $form->addTabFields([
-            'is_store' => [
+            'profile_balance' => [
                 'tab'     => 'rainlab.user::lang.user.account',
-                'label'   => 'Is store',
-                'type'    => 'switch',
+                'label'   => 'Balance',
+                'type'    => 'number',
                 'span'    => 'auto'
             ],
             'profile_status' => [
@@ -230,6 +230,12 @@ class Plugin extends PluginBase
                     'vip_customer' => 'Vip customer'
                 ],
             ],
+            'is_store' => [
+                'tab'     => 'rainlab.user::lang.user.account',
+                'label'   => 'Is store',
+                'type'    => 'switch',
+                'span'    => 'auto'
+            ]
         ]);
 
         if (!$model->is_store) {
@@ -263,10 +269,20 @@ class Plugin extends PluginBase
 
         // Add an extra birthday column
         $widget->addColumns([
+            'profile_balance' => [
+                'label' => 'Balance',
+                'type' => 'text',
+            ],
+            'profile_status' => [
+                'label' => 'Status',
+                'type' => 'text',
+                'invisible' => true
+            ],
             'is_store' => [
                 'label' => 'Is store',
-                'type' => 'switch'
-            ]
+                'type' => 'switch',
+                'invisible' => true
+            ],
         ]);
     }
     private function extendProductList($widget) {

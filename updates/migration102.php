@@ -11,6 +11,7 @@ class Migration102 extends Migration
             $table->integer('is_store')->boolean()->default(0);
             $table->string('phone')->default('NULL');
             $table->string('profile_status')->default('simple');
+            $table->integer('profile_balance')->unsigned();
             $table->string('user_address')->nulable('NULL');
         });
 
