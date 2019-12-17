@@ -148,6 +148,7 @@ class Plugin extends PluginBase
     {
         return [
             'Shohabbos\Stores\Components\StorePage' => 'StorePage',
+            'Shohabbos\Stores\Components\StoreList' => 'StoreList',
             'Shohabbos\Stores\Components\CreateProduct' => 'CreateProduct'
         ];
     }
