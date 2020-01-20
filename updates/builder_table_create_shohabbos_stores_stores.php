@@ -11,12 +11,20 @@ class BuilderTableCreateShohabbosStoresStores extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
-            $table->string('name');
-            $table->string('address')->nullable();
-            $table->string('contacts')->nullable();
-            $table->string('legal_name')->nullable();
-            $table->string('email')->nullable();
             $table->integer('user_id')->unsigned();
+            $table->integer('store_id')->unsigned();
+            $table->integer('commission')->nulable('NULL');
+            $table->string('name', 191);
+            $table->string('slug', 191);
+            $table->text('description')->nulable('NULL');
+            $table->text('content')->nulable('NULL');
+            $table->string('address', 191)->nulable('NULL');
+            $table->string('contacts', 191)->nulable('NULL');
+            $table->string('legal_name', 191)->nulable('NULL');
+            $table->string('email', 191)->nulable('NULL');
+            $table->string('is_category', 191)->nulable('NULL');
+            $table->timestamp('created_at')->nulable('NULL');
+            $table->timestamp('updated_at')->nulable('NULL');
         });
     }
     

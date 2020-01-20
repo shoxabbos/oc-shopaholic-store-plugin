@@ -11,20 +11,13 @@ class BuilderTableCreateShohabbosStoresOrders extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
-            $table->string('shipping_price', 191);
-            $table->string('payment_method', 191);
-            $table->string('shipping_type', 191);
-            $table->string('order_number', 191);
-            $table->string('client_name', 191);
-            $table->string('client_email', 191);
-            $table->string('client_phone', 191);
-            $table->string('shipping_address', 191);
-            $table->integer('product_id');
-            $table->integer('quantity');
-            $table->string('product_name', 191);
-            $table->timestamp('deleted_at')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->integer('store_id')->unsigned();
+            $table->integer('order_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('amount')->unsigned();
+            $table->text('positions', 1000);
+            $table->timestamp('created_at')->nulable('NULL');
+            $table->timestamp('updated_at')->nulable('NULL');
         });
     }
     
